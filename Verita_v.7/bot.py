@@ -25,7 +25,8 @@ ADMIN_IDS_RAW = os.getenv("ADMIN_IDS", os.getenv("ADMIN_ID", ""))
 ADMIN_IDS = {int(x.strip()) for x in ADMIN_IDS_RAW.replace(";", ",").split(",") if x.strip().isdigit()}
 CURRENCY = os.getenv("CURRENCY", "RUB")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.getenv("DB_PATH", "bot.db")
+_default_db_path = "/data/bot.db" if os.path.isdir("/data") else os.path.join(BASE_DIR, "bot.db")
+DB_PATH = os.getenv("DB_PATH", _default_db_path)
 if not os.path.isabs(DB_PATH):
     DB_PATH = os.path.join(BASE_DIR, DB_PATH)
 RESERVATION_MINUTES = int(os.getenv("RESERVATION_MINUTES", "15"))
